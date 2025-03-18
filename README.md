@@ -30,9 +30,6 @@ bash
 使用指南
 ​快速启动
 
-bash
-# 克隆仓库
-git clone https://github.com/username/number-guessing-game.git
 # 直接浏览器打开
 open index.html
 ​自定义设置
