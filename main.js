@@ -37,7 +37,7 @@ function startGame() {
 
 function resetGame() {
     snake = [{x: 10, y: 10}];
-    dx = 0;
+    dx = 1;  // 初始向右移动
     dy = 0;
     score = 0;
     currentScoreElem.textContent = score;
