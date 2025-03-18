@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>猜数字游戏</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding-top: 50px;
+        }
+        .game-container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        input[type="number"] {
+            padding: 10px;
+            margin: 15px 0;
+            width: 200px;
+            border: 2px solid #4CAF50;
+            border-radius: 5px;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+            min-height: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1>🎮 猜数字游戏（1-100）</h1>
+        <input type="number" id="guessInput" placeholder="输入你的猜测">
+        <button onclick="checkGuess()">立即验证</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        // 生成随机目标数字（参考网页6[6](@ref)）
+        let targetNumber = Math.floor(Math.random() * 100) + 1;
+        let attempts = 0;
+
+        function checkGuess() {
+            const inputField = document.getElementById('guessInput');
+            const resultDiv = document.getElementById('result');
+            const userGuess = parseInt(inputField.value);
+            
+            attempts++;
+            
+            // 验证输入有效性（参考网页8[8](@ref)）
+            if (isNaN(userGuess)) {
+                resultDiv.innerHTML = "⚠️ 请输入有效数字！";
+                return;
+            }
+            if (userGuess < 1 || userGuess > 100) {
+                resultDiv.innerHTML = "🔔 请输入1-100之间的数字";
+                return;
+            }
+
+            // 游戏逻辑判断
+            let message = "";
+            if (userGuess < targetNumber) {
+                message = `📉 第${attempts}次尝试：太小了，继续努力！`;
+            } else if (userGuess > targetNumber) {
+                message = `📈 第${attempts}次尝试：太大了，再试一次！`;
+            } else {
+                message = `🎉 恭喜！你在${attempts}次尝试中猜中了数字${targetNumber}！`;
+                inputField.disabled = true;
+            }
+            
+            resultDiv.innerHTML = message;
+            inputField.value = "";  // 清空输入框
+            inputField.focus();     // 自动聚焦输入框
+        }
+    </script>
+</body>
+</html>
