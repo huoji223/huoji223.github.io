@@ -1,100 +1,112 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>猜数字游戏</title>
+    <title>B站作品合集</title>
     <style>
+        /* 基础样式 [4,6](@ref) */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         body {
             font-family: Arial, sans-serif;
-            background: #f0f0f0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding-top: 50px;
+            background: #f5f5f5;
+            padding: 20px;
         }
-        .game-container {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-        input[type="number"] {
-            padding: 10px;
-            margin: 15px 0;
-            width: 200px;
-            border: 2px solid #4CAF50;
+
+        /* 折叠面板样式 [1](@ref) */
+        .collapsible {
+            background: #fff;
+            margin: 10px 0;
             border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
-        button {
-            background: #4CAF50;
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 5px;
+        .collapsible summary {
+            padding: 15px;
             cursor: pointer;
-            font-size: 16px;
-            transition: background 0.3s;
+            background: #00a1d6; /* B站主题色 */
+            color: white;
+            border-radius: 5px 5px 0 0;
         }
-        button:hover {
-            background: #45a049;
+        .collapsible[open] summary {
+            border-radius: 5px;
         }
-        #result {
-            margin-top: 20px;
-            font-size: 18px;
-            color: #333;
-            min-height: 24px;
+        .content {
+            padding: 15px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        /* 媒体元素样式 */
+        .video-card {
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .video-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 3px;
+        }
+        
+        /* 扩展区域 */
+        #future-features {
+            margin-top: 30px;
+            padding: 20px;
+            background: #eee;
+            border: 2px dashed #999;
         }
     </style>
 </head>
 <body>
-    <div class="game-container">
-        <h1>🎮 猜数字游戏（1-100）</h1>
-        <input type="number" id="guessInput" placeholder="输入你的猜测">
-        <button onclick="checkGuess()">立即验证</button>
-        <div id="result"></div>
+    <h1>我的B站作品集</h1>
+    
+    <!-- 可折叠合集区域 -->
+    <details class="collapsible" open>
+        <summary>2024年热门作品</summary>
+        <div class="content">
+            <div class="video-card">
+                <a href="https://www.bilibili.com/video/BV1xx" target="_blank">
+                    <img src="thumbnail1.jpg" alt="视频封面">
+                    <p>【教程】HTML基础教学</p>
+                </a>
+            </div>
+            <!-- 添加更多视频卡片 -->
+        </div>
+    </details>
+
+    <!-- 未来功能扩展区 -->
+    <div id="future-features">
+        <!-- 预留扩展空间 -->
+        <h3>功能扩展区</h3>
+        <p>后续可在此添加：</p>
+        <ul>
+            <li>用户评论模块</li>
+            <li>数据分析面板</li>
+            <li>动态加载更多</li>
+        </ul>
     </div>
 
     <script>
-        // 生成随机目标数字（参考网页6[6](@ref)）
-        let targetNumber = Math.floor(Math.random() * 100) + 1;
-        let attempts = 0;
+        // 折叠功能基础实现 [1,4](@ref)
+        document.querySelectorAll('.collapsible').forEach(item => {
+            item.addEventListener('toggle', function() {
+                this.classList.toggle('active');
+            });
+        });
 
-        function checkGuess() {
-            const inputField = document.getElementById('guessInput');
-            const resultDiv = document.getElementById('result');
-            const userGuess = parseInt(inputField.value);
-            
-            attempts++;
-            
-            // 验证输入有效性（参考网页8[8](@ref)）
-            if (isNaN(userGuess)) {
-                resultDiv.innerHTML = "⚠️ 请输入有效数字！";
-                return;
-            }
-            if (userGuess < 1 || userGuess > 100) {
-                resultDiv.innerHTML = "🔔 请输入1-100之间的数字";
-                return;
-            }
-
-            // 游戏逻辑判断
-            let message = "";
-            if (userGuess < targetNumber) {
-                message = `📉 第${attempts}次尝试：太小了，继续努力！`;
-            } else if (userGuess > targetNumber) {
-                message = `📈 第${attempts}次尝试：太大了，再试一次！`;
-            } else {
-                message = `🎉 恭喜！你在${attempts}次尝试中猜中了数字${targetNumber}！`;
-                inputField.disabled = true;
-            }
-            
-            resultDiv.innerHTML = message;
-            inputField.value = "";  // 清空输入框
-            inputField.focus();     // 自动聚焦输入框
-        }
+        // 扩展功能占位符
+        /* 
+        后续可添加：
+        1. 视频数据API对接
+        2. 图片懒加载
+        3. 合集持久化状态保存
+        */
     </script>
 </body>
 </html>
