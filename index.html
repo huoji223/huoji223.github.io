@@ -1,19 +1,19 @@
 <!-- index.html -->
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>网页版贪吃蛇</title>
+    <title>贪吃蛇+点击计数器</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="game-container">
-        <canvas id="gameCanvas" width="600" height="400"></canvas>
+        <canvas id="gameCanvas" width="400" height="400"></canvas>
         <div class="controls">
-            <button id="startBtn">开始游戏</button>
-            <div class="score-board">
-                <p>当前得分: <span id="currentScore">0</span></p>
-                <p>最高得分: <span id="highScore">0</span></p>
+            <button id="clickCounter">点击次数：0</button>
+            <div class="game-buttons">
+                <button id="startBtn">开始游戏</button>
+                <button id="resetBtn">重置计数</button>
             </div>
         </div>
     </div>
